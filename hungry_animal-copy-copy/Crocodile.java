@@ -9,15 +9,35 @@ public class Crocodile extends Actor
      */
     public void act()
     {
-        move(2);// Add your action code here.
+        setLocation(getX(), getY() + 1);
+        // Allows crocodile to move, dependent on the key
         if (Greenfoot.isKeyDown("right"))
         {
             turn(4);
-            
         }
         else if(Greenfoot.isKeyDown("left"))
         {
             turn(-4);
+        }
+        else if(Greenfoot.isKeyDown("up"))
+        {
+            move(4);
+        }
+        else if(Greenfoot.isKeyDown("down"))
+        {
+            move(-4);
+        }
+        eat();
+    }
+    public void eat()
+    {
+        // Remove fish if crocodile eats it
+        if(isTouching(Fish.class))
+        {
+            removeTouching(Fish.class);
+            MyWorld world = (MyWorld) getWorld();
+            world.createFish();
+            world.increaseScore();
         }
     }
 }
